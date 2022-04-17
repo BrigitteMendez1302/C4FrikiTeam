@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "restore": {
+    "H:\\Brigitte\\7mo ciclo\\Fundamentos de arquitectura de software\\FrikiTeam\\fas-c4-model\\fas-c4-model.csproj": {}
+  },
+  "projects": {
+    "H:\\Brigitte\\7mo ciclo\\Fundamentos de arquitectura de software\\FrikiTeam\\fas-c4-model\\fas-c4-model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Brigitte\\7mo ciclo\\Fundamentos de arquitectura de software\\FrikiTeam\\fas-c4-model\\fas-c4-model.csproj",
+        "projectName": "fas-c4-model",
+        "projectPath": "H:\\Brigitte\\7mo ciclo\\Fundamentos de arquitectura de software\\FrikiTeam\\fas-c4-model\\fas-c4-model.csproj",
+        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+        "outputPath": "H:\\Brigitte\\7mo ciclo\\Fundamentos de arquitectura de software\\FrikiTeam\\fas-c4-model\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "netcoreapp6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "netcoreapp6.0",
+          "dependencies": {
+            "Structurizr.Client": {
+              "target": "Package",
+              "version": "[0.9.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

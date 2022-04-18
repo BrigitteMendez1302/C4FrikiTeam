@@ -36,3 +36,22 @@ H:\Brigitte\7mo ciclo\Fundamentos de arquitectura de software\FrikiTeam\fas-c4-m
 H:\Brigitte\7mo ciclo\Fundamentos de arquitectura de software\FrikiTeam\fas-c4-model\obj\Debug\netcoreapp6.0\fas-c4-model.pdb
 H:\Brigitte\7mo ciclo\Fundamentos de arquitectura de software\FrikiTeam\fas-c4-model\obj\Debug\netcoreapp6.0\fas-c4-model.genruntimeconfig.cache
 H:\Brigitte\7mo ciclo\Fundamentos de arquitectura de software\FrikiTeam\fas-c4-model\obj\Debug\netcoreapp6.0\ref\fas-c4-model.dll
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\bin\Debug\netcoreapp6.0\fas-c4-model.exe
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\bin\Debug\netcoreapp6.0\fas-c4-model.deps.json
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\bin\Debug\netcoreapp6.0\fas-c4-model.runtimeconfig.json
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\bin\Debug\netcoreapp6.0\fas-c4-model.dll
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\bin\Debug\netcoreapp6.0\fas-c4-model.pdb
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\bin\Debug\netcoreapp6.0\Newtonsoft.Json.dll
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\bin\Debug\netcoreapp6.0\Structurizr.Client.dll
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\bin\Debug\netcoreapp6.0\Structurizr.Core.dll
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\fas-c4-model.csproj.AssemblyReference.cache
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\fas-c4-model.GeneratedMSBuildEditorConfig.editorconfig
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\fas-c4-model.AssemblyInfoInputs.cache
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\fas-c4-model.AssemblyInfo.cs
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\fas-c4-model.csproj.CoreCompileInputs.cache
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\fas-c4-model.csproj.CopyComplete
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\fas-c4-model.dll
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\refint\fas-c4-model.dll
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\fas-c4-model.pdb
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\fas-c4-model.genruntimeconfig.cache
+D:\Ing de Software\Ciclo 7\Fundamentos de Arquitectura de Software\Codigo\C4FrikiTeam\obj\Debug\netcoreapp6.0\ref\fas-c4-model.dll

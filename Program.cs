@@ -25,7 +25,7 @@ namespace fas_c4_model
             SoftwareSystem frikiEventsSystem = model.AddSoftwareSystem("Friki Events", "Plataforma orientada a encontrar y publicar eventos de indole friki");
             SoftwareSystem googleMaps = model.AddSoftwareSystem("Google Maps API", "Brinda información de geolocalización, mapas, etc");
             SoftwareSystem paySystem = model.AddSoftwareSystem("Mercado Pago API", "Pasarela de pagos compatible con múltiples métodos de pago");
-            SoftwareSystem emailSystem = model.AddSoftwareSystem("Email Systen", "Sistema de mensajería");
+            SoftwareSystem emailSystem = model.AddSoftwareSystem("Email System", "Sistema de mensajería");
 
             Person organizador = model.AddPerson("Organizador de eventos", "Usuario que publica eventos para los usuarios friki");
             Person usuarioFriki = model.AddPerson("Usuario friki", "Usuario que utiliza la plataforma para encontrar eventos friki");
@@ -35,7 +35,6 @@ namespace fas_c4_model
             frikiEventsSystem.Uses(paySystem, "Realiza peticiones para la compra y venta de entradas a un evento friki");
             frikiEventsSystem.Uses(googleMaps, "Obtiene información de geolocalización de los usuarios y los eventos friki");
             frikiEventsSystem.Uses(emailSystem, "Envia correos usando");
-
 
             SystemContextView contextView = viewSet.CreateSystemContextView(frikiEventsSystem, "Contexto", "Diagrama de contexto");
             contextView.PaperSize = PaperSize.A4_Landscape;
@@ -59,7 +58,6 @@ namespace fas_c4_model
             styles.Add(new ElementStyle("EmailSystem") { Background = "#2f95c7", Color = "#ffffff", Shape = Shape.RoundedBox });
 
             // 2. Diagrama de Contenedores
-            //Container mobileApplication = monitoringSystem.AddContainer("Mobile App", "Permite a los usuarios visualizar un dashboard con el resumen de toda la información del traslado de los lotes de vacunas.", "Flutter");
             Container webApplication = frikiEventsSystem.AddContainer("Web Application", "Permite a los organizadores publicar eventos friki y a los usuarios friki encontrarlos", "Angular");
             Container landingPage = frikiEventsSystem.AddContainer("Landing Page", "Página estática que proporciona información acerca de FrikiEvents", "HTML, CSS Y Javascript");
             Container apiGateway = frikiEventsSystem.AddContainer("API Gateway", "API Gateway", "Spring Boot port 8080");
@@ -67,37 +65,25 @@ namespace fas_c4_model
             Container socialNetworkingBoundedContext = frikiEventsSystem.AddContainer("Social Network Bounded Context", "", "Java and Spring Boot");
             Container paymentBoundedContext = frikiEventsSystem.AddContainer("Payment Bounded Context", "", "Java and Spring Boot");
             Container eventBoundedContext = frikiEventsSystem.AddContainer("Event Bounded Context", "", "Java and Spring Boot");
-            // Container vaccinesInventoryContext = monitoringSystem.AddContainer("Vaccines Inventory Context", "Bounded Context del Microservicio de Inventario de Vacunas", "Spring Boot port 8084");
-            // Container monitoringContext = monitoringSystem.AddContainer("Monitoring Context", "Bounded Context del Microservicio de Monitoreo en tiempo real del status y ubicación del vuelo que transporta las vacunas", "Spring Boot port 8085");
             Container messageBus =
                 frikiEventsSystem.AddContainer("Bus de Mensajes en Cluster de Alta Disponibilidad", "Transporte de eventos del dominio.", "RabbitMQ");
-            // Container flightPlanningContextDatabase = frikiEventsSystem.AddContainer("Database", "Almacena la informacion de los postulantes, empleadores, ofertas de trabajo, entrevistas, etc", "Oracle");
             Container userContextDatabase = frikiEventsSystem.AddContainer("User Context DB", "", "Oracle");
             Container socialNetworkContextDatabase = frikiEventsSystem.AddContainer("Social Network Context DB", "", "Oracle");
             Container paymentContextDatabase = frikiEventsSystem.AddContainer("Payment Context DB", "", "Oracle");
             Container eventContextDatabase = frikiEventsSystem.AddContainer("Event Context DB", "", "Oracle");
 
-            // Container monitoringContextDatabase = monitoringSystem.AddContainer("Monitoring Context DB", "", "Oracle");
-            // Container monitoringContextReplicaDatabase = monitoringSystem.AddContainer("Monitoring Context DB Replica", "", "Oracle");
-            // Container monitoringContextReactiveDatabase = monitoringSystem.AddContainer("Monitoring Context Reactive DB", "", "Firebase Cloud Firestore");
-            
-            // ciudadano.Uses(mobileApplication, "Consulta");
             organizador.Uses(webApplication, "Publica eventos friki en");
             organizador.Uses(landingPage, "Visita frikievents.com usando");
             landingPage.Uses(webApplication, "Redirige a");
-            // periodista.Uses(mobileApplication, "Consulta");
             usuarioFriki.Uses(webApplication, "Encuentra eventos friki en");
             usuarioFriki.Uses(landingPage,  "Visita frikievents.com usando");
             webApplication.Uses(apiGateway, "API Request", "JSON/HTTPS");
-            // webApplication.Uses(userBoundedContext, "API Request", "JSON/HTTPS");
-            // webApplication.Uses(socialNetworkingBoundedContext, "API Request", "JSON/HTTPS");
-            // webApplication.Uses(paymentBoundedContext, "API Request", "JSON/HTTPS");
 
             apiGateway.Uses(userBoundedContext, "API Request", "JSON/HTTPS");
             apiGateway.Uses(socialNetworkingBoundedContext, "API Request", "JSON/HTTPS");
             apiGateway.Uses(paymentBoundedContext, "API Request", "JSON/HTTPS");
             apiGateway.Uses(eventBoundedContext, "API Request", "JSON/HTTPS");
-            // apiGateway.Uses(monitoringContext, "API Request", "JSON/HTTPS");
+
             userBoundedContext.Uses(messageBus, "Publica y consume eventos del dominio");
             userBoundedContext.Uses(userContextDatabase, "Create, Update, Delete and Get from", "JDBC");
             userBoundedContext.Uses(googleMaps, "Obtiene los datos de geolocalización del usuario friki usando", "JSON/HTTPS");
@@ -114,24 +100,7 @@ namespace fas_c4_model
             eventBoundedContext.Uses(emailSystem, "Envia correos acerca de los eventos friki usando", "JSON/HTTPS");
             eventBoundedContext.Uses(googleMaps, "Obtiene los datos de geolocalización de los eventos friki usando", "JSON/HTTPS");
 
-
-            // airportContext.Uses(messageBus, "Publica y consume eventos del dominio");
-            // socialNetworkingBoundedContext.Uses(flightPlanningContextDatabase, "Create, Update, Delete and Get from", "JDBC");
-            // aircraftInventoryContext.Uses(messageBus, "Publica y consume eventos del dominio");
-            // paymentBoundedContext.Uses(flightPlanningContextDatabase, "Create, Update, Delete and Get from", "JDBC");
-            // vaccinesInventoryContext.Uses(messageBus, "Publica y consume eventos del dominio");
-            // vaccinesInventoryContext.Uses(vaccinesInventoryContextDatabase, "", "JDBC");
-            // monitoringContext.Uses(messageBus, "Publica y consume eventos del dominio");
-            // userBoundedContext.Uses(paySystem , "Almacena los documentos para la postulacion (CV, Carta de presentacion, video de presentacion)", "JSON/HTTPS");
-            // socialNetworkingBoundedContext.Uses(paySystem , "Almacena los  documentos del postulante como foto de perfil", "JSON/HTTPS");
-            // paymentBoundedContext.Uses(paySystem , "Almacena los  documentos del postulante como foto de perfil de la empresa", "JSON/HTTPS");
-            // userBoundedContext.Uses(googleMaps , "Genera el link para la videoconferencia", "JSON/HTTPS");
-            // monitoringContextDatabase.Uses(monitoringContextReplicaDatabase, "Replica");
-            // monitoringContext.Uses(googleMaps, "API Request", "JSON/HTTPS");
-            // monitoringContext.Uses(aircraftSystem, "API Request", "JSON/HTTPS");
-
             // Tags
-            // mobileApplication.AddTags("MobileApp");
             webApplication.AddTags("WebApp");
             landingPage.AddTags("LandingPage");
             apiGateway.AddTags("APIGateway");
@@ -145,34 +114,14 @@ namespace fas_c4_model
             paymentContextDatabase.AddTags("FlightPlanningContextDatabase");
             eventContextDatabase.AddTags("FlightPlanningContextDatabase");
 
-            // socialNetworkingBoundedContext.AddTags("AirportContext");
-            // airportContextDatabase.AddTags("AirportContextDatabase");
-            // paymentBoundedContext.AddTags("AircraftInventoryContext");
-            // aircraftInventoryContextDatabase.AddTags("AircraftInventoryContextDatabase");
-            // vaccinesInventoryContext.AddTags("VaccinesInventoryContext");
-            // vaccinesInventoryContextDatabase.AddTags("VaccinesInventoryContextDatabase");
-            // monitoringContext.AddTags("MonitoringContext");
-            // monitoringContextDatabase.AddTags("MonitoringContextDatabase");
-            // monitoringContextReplicaDatabase.AddTags("MonitoringContextReplicaDatabase");
-            // monitoringContextReactiveDatabase.AddTags("MonitoringContextReactiveDatabase");
             messageBus.AddTags("MessageBus");
             
             styles.Add(new ElementStyle("WebApp") { Background = "#9d33d6", Color = "#ffffff", Shape = Shape.WebBrowser, Icon = "" });
-            // styles.Add(new ElementStyle("WebApp") { Background = "#9d33d6", Color = "#ffffff", Shape = Shape.WebBrowser, Icon = "" });
             styles.Add(new ElementStyle("LandingPage") { Background = "#929000", Color = "#ffffff", Shape = Shape.WebBrowser, Icon = "" });
             styles.Add(new ElementStyle("APIGateway") { Shape = Shape.RoundedBox, Background = "#0000ff", Color = "#ffffff", Icon = "" });
             styles.Add(new ElementStyle("FlightPlanningContext") { Shape = Shape.Hexagon, Background = "#facc2e", Icon = "" });
             styles.Add(new ElementStyle("FlightPlanningContextDatabase") { Shape = Shape.Cylinder, Background = "#ff0000", Color = "#ffffff", Icon = "" });
-            // styles.Add(new ElementStyle("AirportContext") { Shape = Shape.Hexagon, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("AirportContextDatabase") { Shape = Shape.Cylinder, Background = "#ff0000", Color = "#ffffff", Icon = "" });
             styles.Add(new ElementStyle("AircraftInventoryContext") { Shape = Shape.Hexagon, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("AircraftInventoryContextDatabase") { Shape = Shape.Cylinder, Background = "#ff0000", Color = "#ffffff", Icon = "" });
-            // styles.Add(new ElementStyle("VaccinesInventoryContext") { Shape = Shape.Hexagon, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("VaccinesInventoryContextDatabase") { Shape = Shape.Cylinder, Background = "#ff0000", Color = "#ffffff", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringContext") { Shape = Shape.Hexagon, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringContextDatabase") { Shape = Shape.Cylinder, Background = "#ff0000", Color = "#ffffff", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringContextReplicaDatabase") { Shape = Shape.Cylinder, Background = "#ff0000", Color = "#ffffff", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringContextReactiveDatabase") { Shape = Shape.Cylinder, Background = "#ff0000", Color = "#ffffff", Icon = "" });
             styles.Add(new ElementStyle("MessageBus") { Width = 850, Background = "#fd8208", Color = "#ffffff", Shape = Shape.Pipe, Icon = "" });
 
             ContainerView containerView = viewSet.CreateContainerView(frikiEventsSystem, "Contenedor", "Diagrama de contenedores");
@@ -182,11 +131,6 @@ namespace fas_c4_model
             // 3. Diagrama de Componentes
             //Payment bounded context
 
-            // Component domainLayer = airportContext.AddComponent("Domain Layer", "", "Spring Boot");
-            // Component monitoringController = socialNetworkingBoundedContext.AddComponent("Language Controller", "Controller de los idiomas que habla el postulante", "Spring Boot REST Controller");
-            // Component monitoringApplicationService = socialNetworkingBoundedContext.AddComponent("Lenguage Service", "Provee métodos para los idiomas que habla el postulante", "Spring Component");
-            // Component flightRepository = socialNetworkingBoundedContext.AddComponent("Lenguage Repository", "Provee métodos para la persistencia de datos para los idiomas que habla el postulante", "Spring Component");
-            
             Component offersController = paymentBoundedContext.AddComponent("Offers Controller", "Controller de las ofertas para un evento friki", "Spring Boot REST Controller");
             Component offersApplicationService = paymentBoundedContext.AddComponent("Offers Service", "Provee métodos para manejar las ofertas para un evento friki", "Spring Component");
             Component offersRepository = paymentBoundedContext.AddComponent("Offers Repository", "Provee métodos para la persistencia de las ofertas para un evento friki", "Spring Component");
@@ -203,9 +147,6 @@ namespace fas_c4_model
             Component paymentsApplicationService = paymentBoundedContext.AddComponent("Payments Service", "Provee métodos para manejar la información de los pagos para la asistencia a un evento", "Spring Component");
             Component paymentsRepository = paymentBoundedContext.AddComponent("Payments Repository", "Provee métodos para la persistencia de datos de los pagos para la asistencia a un evento", "Spring Component");
 
-            // monitoringController.Uses(monitoringApplicationService, "Llama a los metodos del service");
-            // monitoringApplicationService.Uses(flightRepository, "Llama a los metodos del repository");
-            // flightRepository.Uses(flightPlanningContextDatabase, "Escribe y lee en");
             apiGateway.Uses(paymentsController, "", "JSON/HTTPS");
             apiGateway.Uses(offersController, "", "JSON/HTTPS");
             apiGateway.Uses(ticketsController, "", "JSON/HTTPS");
@@ -217,7 +158,6 @@ namespace fas_c4_model
 
             ticketsController.Uses(ticketsApplicationService, "Llama a los metodos del service");
             ticketsApplicationService.Uses(ticketsRepository, "Llama a los metodos del repository");
-            // postulantApplicationService.Uses(paySystem, "Sube los archivos del postulante a");
             ticketsRepository.Uses(paymentContextDatabase, "Escribe y lee en");
 
             paymentMethodsController.Uses(paymentMethodsApplicationService, "Llama a los metodos del service");
@@ -228,7 +168,6 @@ namespace fas_c4_model
             paymentsApplicationService.Uses(paymentsRepository, "Llama a los metodos del repository");
             paymentsApplicationService.Uses(paySystem, "Gestiona el pago de entrada para los eventos frikis");
             paymentsRepository.Uses(paymentContextDatabase, "Escribe y lee en");
-
 
             offersController.AddTags("MonitoringController");
             offersApplicationService.AddTags("MonitoringApplicationService");
@@ -245,45 +184,6 @@ namespace fas_c4_model
             paymentsController.AddTags("MonitoringController");
             paymentsApplicationService.AddTags("MonitoringApplicationService");
             paymentsRepository.AddTags("FlightRepository");
-            // Component vaccineLoteRepository = airportContext.AddComponent("VaccineLote Repository", "Información de lote de vacunas", "Spring Component");
-            // Component locationRepository = airportContext.AddComponent("Location Repository", "Ubicación del vuelo", "Spring Component");
-            // Component aircraftSystemFacade = airportContext.AddComponent("Aircraft System Facade", "", "Spring Component");
-
-            // apiGateway.Uses(monitoringController, "", "JSON/HTTPS");
-            // monitoringController.Uses(monitoringApplicationService, "Invoca métodos de monitoreo");
-            // monitoringController.Uses(aircraftSystemFacade, "Usa");
-            // monitoringApplicationService.Uses(domainLayer, "Usa", "");
-            // monitoringApplicationService.Uses(flightRepository, "", "JDBC");
-            // monitoringApplicationService.Uses(vaccineLoteRepository, "", "JDBC");
-            // monitoringApplicationService.Uses(locationRepository, "", "JDBC");
-            // flightRepository.Uses(monitoringContextDatabase, "", "JDBC");
-            // vaccineLoteRepository.Uses(monitoringContextDatabase, "", "JDBC");
-            // locationRepository.Uses(monitoringContextDatabase, "", "JDBC");
-            // locationRepository.Uses(monitoringContextReactiveDatabase, "", "");
-            // locationRepository.Uses(googleMaps, "", "JSON/HTTPS");
-            // aircraftSystemFacade.Uses(aircraftSystem, "JSON/HTTPS");
-            
-            // Tags
-            // domainLayer.AddTags("DomainLayer");
-            // monitoringController.AddTags("MonitoringController");
-            // monitoringApplicationService.AddTags("MonitoringApplicationService");
-            // flightRepository.AddTags("FlightRepository");
-
-
-
-            // vaccineLoteRepository.AddTags("VaccineLoteRepository");
-            // locationRepository.AddTags("LocationRepository");
-            // aircraftSystemFacade.AddTags("AircraftSystemFacade");
-            
-            // styles.Add(new ElementStyle("DomainLayer") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringApplicationService") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringDomainModel") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("FlightStatus") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("FlightRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("VaccineLoteRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("LocationRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("AircraftSystemFacade") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
 
             ComponentView componentView = viewSet.CreateComponentView(paymentBoundedContext, "Payment Components", "Payment Component Diagram");
             componentView.PaperSize = PaperSize.A4_Landscape;
@@ -292,15 +192,6 @@ namespace fas_c4_model
             componentView.Add(webApplication);
             componentView.Add(paymentContextDatabase);
             componentView.AddAllComponents();
-            // componentView.Add(googleMaps);
-            // // componentView.Add(mobileApplication);
-            // componentView.Add(webApplication);
-            // componentView.Add(apiGateway);
-            // componentView.Add(monitoringContextDatabase);
-            // componentView.Add(flightPlanningContextDatabase);
-            // componentView.Add(monitoringContextReactiveDatabase);
-
-
 
             //Social Networking bounded context
             
@@ -370,113 +261,125 @@ namespace fas_c4_model
             eventFollowsController.AddTags("MonitoringController");
             eventFollowsApplicationService.AddTags("MonitoringApplicationService");
             eventFollowsRepository.AddTags("FlightRepository");
-            // Component vaccineLoteRepository = airportContext.AddComponent("VaccineLote Repository", "Información de lote de vacunas", "Spring Component");
-            // Component locationRepository = airportContext.AddComponent("Location Repository", "Ubicación del vuelo", "Spring Component");
-            // Component aircraftSystemFacade = airportContext.AddComponent("Aircraft System Facade", "", "Spring Component");
-
-            // apiGateway.Uses(monitoringController, "", "JSON/HTTPS");
-            // monitoringController.Uses(monitoringApplicationService, "Invoca métodos de monitoreo");
-            // monitoringController.Uses(aircraftSystemFacade, "Usa");
-            // monitoringApplicationService.Uses(domainLayer, "Usa", "");
-            // monitoringApplicationService.Uses(flightRepository, "", "JDBC");
-            // monitoringApplicationService.Uses(vaccineLoteRepository, "", "JDBC");
-            // monitoringApplicationService.Uses(locationRepository, "", "JDBC");
-            // flightRepository.Uses(monitoringContextDatabase, "", "JDBC");
-            // vaccineLoteRepository.Uses(monitoringContextDatabase, "", "JDBC");
-            // locationRepository.Uses(monitoringContextDatabase, "", "JDBC");
-            // locationRepository.Uses(monitoringContextReactiveDatabase, "", "");
-            // locationRepository.Uses(googleMaps, "", "JSON/HTTPS");
-            // aircraftSystemFacade.Uses(aircraftSystem, "JSON/HTTPS");
-            
-            // Tags
-            // domainLayer.AddTags("DomainLayer");
-            // monitoringController.AddTags("MonitoringController");
-            // monitoringApplicationService.AddTags("MonitoringApplicationService");
-            // flightRepository.AddTags("FlightRepository");
-
-
-
-            // vaccineLoteRepository.AddTags("VaccineLoteRepository");
-            // locationRepository.AddTags("LocationRepository");
-            // aircraftSystemFacade.AddTags("AircraftSystemFacade");
-            
-            // styles.Add(new ElementStyle("DomainLayer") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringApplicationService") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringDomainModel") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("FlightStatus") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("FlightRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("VaccineLoteRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("LocationRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("AircraftSystemFacade") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
 
             ComponentView socialComponentView = viewSet.CreateComponentView(socialNetworkingBoundedContext, "Social Network Components", "Social Network Component Diagram");
             socialComponentView.PaperSize = PaperSize.A4_Landscape;
-            // componentView.Add(paySystem);
+            
             socialComponentView.Add(apiGateway);
             socialComponentView.Add(webApplication);
             socialComponentView.Add(socialNetworkContextDatabase);
             socialComponentView.AddAllComponents();
 
-
-            // Component employeerController = paymentBoundedContext .AddComponent("Employeer Controller", "Controller de la informacion del empleador", "Spring Boot REST Controller");
-            // Component employeerApplicationService = paymentBoundedContext .AddComponent("Employeer Service", "Provee métodos para manejar la informacion del empleador", "Spring Component");
-            // Component flightemployeerRepository = paymentBoundedContext .AddComponent("Employeer Repository", "Provee métodos para la persistencia de datos de la informacion del empleador", "Spring Component");
             
-            // Component companyController = paymentBoundedContext .AddComponent("Company Controller", "Controller de la informacion de la empresa", "Spring Boot REST Controller");
-            // Component companyApplicationService = paymentBoundedContext .AddComponent("Company Service", "Provee métodos para manejar la informacion de la empresa", "Spring Component");
-            // Component companyRepository = paymentBoundedContext .AddComponent("Company Repository", "Provee métodos para la persistencia de datos de la informacion de la empresa", "Spring Component");
+            //User bounded context
 
-            // Component sectorController = paymentBoundedContext .AddComponent("Sector Controller", "Controller de la informacion del sector", "Spring Boot REST Controller");
-            // Component sectorApplicationService = paymentBoundedContext .AddComponent("Sector Service", "Provee métodos para manejar la informacion del sector", "Spring Component");
-            // Component sectorRepository = paymentBoundedContext .AddComponent("Sector Repository", "Provee métodos para la persistencia de datos de la información del sector", "Spring Component");
+            Component customersController =  userBoundedContext.AddComponent("Customer Controller", "Controller de los usuarios frikis", "Spring Boot REST Controller");
+            Component customersService =     userBoundedContext.AddComponent("Customer Service", "Provee métodos para manejar a los usuarios frikis", "Spring Component");
+            Component customersRepository =  userBoundedContext.AddComponent("Customer Repository", "Provee métodos para la persistencia de datos de los usuarios frikis", "Spring Component");
 
-            // employeerController.Uses(employeerApplicationService, "Llama a los metodos del service");
-            // employeerApplicationService.Uses(flightemployeerRepository, "Llama a los metodos del repository");
-            // employeerApplicationService.Uses(paySystem, "Sube los archivos del empleador y la compañia a");
-            // flightemployeerRepository.Uses(flightPlanningContextDatabase, "Escribe y lee en");
+            Component organizersController =  userBoundedContext.AddComponent("Organizer Controller", "Controller de los organizadores de eventos", "Spring Boot REST Controller");
+            Component organizersService =     userBoundedContext.AddComponent("Organizer Service", "Provee métodos para manejar a los organizadores de eventos", "Spring Component");
+            Component organizersRepository =  userBoundedContext.AddComponent("Organizer Repository", "Provee métodos para la persistencia de datos de los organizadores de eventos", "Spring Component");
 
-            // companyController.Uses(companyApplicationService, "Llama a los metodos del service");
-            // companyApplicationService.Uses(companyRepository, "Llama a los metodos del repository");
-            // companyRepository.Uses(flightPlanningContextDatabase, "Escribe y lee en");
+            apiGateway.Uses(customersController, "", "JSON/HTTPS");
+            apiGateway.Uses(organizersController, "", "JSON/HTTPS");
 
-            // sectorController.Uses(sectorApplicationService, "Llama a los metodos del service");
-            // sectorApplicationService.Uses(sectorRepository, "Llama a los metodos del repository");
-            // sectorRepository.Uses(flightPlanningContextDatabase, "Escribe y lee en");
+            customersController.Uses(customersService, "Llama a los metodos del service");
+            customersService.Uses(customersRepository, "Llama a los metodos del repository");
+            /*ojo*/
+            customersService.Uses(emailSystem, "Administra el envio de correos al usuario friki");
+            customersRepository.Uses(userContextDatabase, "Escribe y lee en");
+
+            organizersController.Uses(organizersService, "Llama a los metodos del service");
+            organizersService.Uses(organizersRepository, "Llama a los metodos del repository");
+            /*ojo*/
+            organizersService.Uses(emailSystem, "Administra el envio de correos al usuario organizador");
+            organizersRepository.Uses(userContextDatabase, "Escribe y lee en");
             
-            // Tags
-            // employeerController.AddTags("MonitoringController");
-            // employeerApplicationService.AddTags("MonitoringApplicationService");
-            // flightemployeerRepository.AddTags("FlightRepository");
+            customersController.AddTags("MonitoringController");
+            customersService.AddTags("MonitoringApplicationService");
+            customersRepository.AddTags("FlightRepository");
 
-            // companyController.AddTags("MonitoringController");
-            // companyApplicationService.AddTags("MonitoringApplicationService");
-            // companyRepository.AddTags("FlightRepository");
+            organizersController.AddTags("MonitoringController");
+            organizersService.AddTags("MonitoringApplicationService");
+            organizersRepository.AddTags("FlightRepository");
 
-            // sectorController.AddTags("MonitoringController");
-            // sectorApplicationService.AddTags("MonitoringApplicationService");
-            // sectorRepository.AddTags("FlightRepository");
+            ComponentView userComponentView = viewSet.CreateComponentView(userBoundedContext, "User Components", "User Component Diagram");
+            userComponentView.PaperSize = PaperSize.A4_Landscape;
             
-            // styles.Add(new ElementStyle("MonitoringController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("MonitoringApplicationService") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-            // styles.Add(new ElementStyle("FlightRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
+            userComponentView.Add(apiGateway);
+            userComponentView.Add(webApplication);
+            userComponentView.Add(userContextDatabase);
+            userComponentView.AddAllComponents();
 
-            // ComponentView employeerComponentView = viewSet.CreateComponentView(paymentBoundedContext , "Employeer Components", "Employeer Component Diagram");
-            // employeerComponentView.PaperSize = PaperSize.A4_Landscape;
-            // employeerComponentView.Add(flightPlanningContextDatabase);
-            // employeerComponentView.Add(paySystem);
-            // employeerComponentView.AddAllComponents();
+            //Event bounded context
+
+            Component eventController =  eventBoundedContext.AddComponent("Event Controller", "Controller de los eventos", "Spring Boot REST Controller");
+            Component eventService =     eventBoundedContext.AddComponent("Event Service", "Provee métodos para manejar a los eventos", "Spring Component");
+            Component eventRepository =  eventBoundedContext.AddComponent("Event Repository", "Provee métodos para la persistencia de datos de los eventos", "Spring Component");
+
+            Component placeController =  eventBoundedContext.AddComponent("Place Controller", "Controller de los lugares", "Spring Boot REST Controller");
+            Component placeService =     eventBoundedContext.AddComponent("Place Service", "Provee métodos para manejar a los lugares", "Spring Component");
+            Component placeRepository =  eventBoundedContext.AddComponent("Place Repository", "Provee métodos para la persistencia de datos de los lugares", "Spring Component");
+
+            Component tagController =  eventBoundedContext.AddComponent("Tag Controller", "Controller de los tags", "Spring Boot REST Controller");
+            Component tagService =     eventBoundedContext.AddComponent("Tag Service", "Provee métodos para manejar a los tags", "Spring Component");
+            Component tagRepository =  eventBoundedContext.AddComponent("Tag Repository", "Provee métodos para la persistencia de datos de los tags", "Spring Component");
+
+            Component itineraryController = eventBoundedContext.AddComponent("Itinerary Controller", "Controller de los itinerarios", "Spring Boot REST Controller");
+            Component itineraryService = eventBoundedContext.AddComponent("Itinerary Service", "Provee métodos para manejar a los itinerarios", "Spring Component");
+            Component itineraryRepository = eventBoundedContext.AddComponent("Itinerary Repository", "Provee métodos para la persistencia de datos de los itinerarios", "Spring Component");
+
+            apiGateway.Uses(eventController, "", "JSON/HTTPS");
+            apiGateway.Uses(placeController, "", "JSON/HTTPS");
+            apiGateway.Uses(tagController, "", "JSON/HTTPS");
+            apiGateway.Uses(itineraryController, "", "JSON/HTTPS");
+
+            eventController.Uses(eventService, "Llama a los metodos del service");
+            eventService.Uses(eventRepository, "Llama a los metodos del repository");
+            /*ojo*/
+            eventService.Uses(emailSystem, "Administra el envio de correos al usuario organizador");
+            eventRepository.Uses(eventContextDatabase, "Escribe y lee en");
+
+            placeController.Uses(placeService, "Llama a los metodos del service");
+            placeService.Uses(placeRepository, "Llama a los metodos del repository");
+            placeRepository.Uses(eventContextDatabase, "Escribe y lee en");
+
+            tagController.Uses(tagService, "Llama a los metodos del service");
+            tagService.Uses(tagRepository, "Llama a los metodos del repository");
+            tagRepository.Uses(eventContextDatabase, "Escribe y lee en");
+
+            itineraryController.Uses(itineraryService, "Llama a los metodos del service");
+            itineraryService.Uses(itineraryRepository, "Llama a los metodos del repository");
+            itineraryRepository.Uses(eventContextDatabase, "Escribe y lee en");
+
+            eventController.AddTags("MonitoringController");
+            eventService.AddTags("MonitoringApplicationService");
+            eventRepository.AddTags("FlightRepository");
+
+            placeController.AddTags("MonitoringController");
+            placeService.AddTags("MonitoringApplicationService");
+            placeRepository.AddTags("FlightRepository");
+
+            tagController.AddTags("MonitoringController");
+            tagService.AddTags("MonitoringApplicationService");
+            tagRepository.AddTags("FlightRepository");
+
+            itineraryController.AddTags("MonitoringController");
+            itineraryService.AddTags("MonitoringApplicationService");
+            itineraryRepository.AddTags("FlightRepository");
+
+            ComponentView eventComponentView = viewSet.CreateComponentView(eventBoundedContext, "Event Components", "Event Component Diagram");
+            eventComponentView.PaperSize = PaperSize.A4_Landscape;
             
+            eventComponentView.Add(apiGateway);
+            eventComponentView.Add(webApplication);
+            eventComponentView.Add(eventContextDatabase);
+            eventComponentView.AddAllComponents();
+
             styles.Add(new ElementStyle("MonitoringController") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
             styles.Add(new ElementStyle("MonitoringApplicationService") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
             styles.Add(new ElementStyle("FlightRepository") { Shape = Shape.Component, Background = "#facc2e", Icon = "" });
-
-            // ComponentView jobOfferComponentView = viewSet.CreateComponentView(userBoundedContext , "Job Offer Components", "Job Offer Component Diagram");
-            // jobOfferComponentView.PaperSize = PaperSize.A4_Landscape;
-            // // jobOfferComponentView.Add(flightPlanningContextDatabase);
-            // jobOfferComponentView.Add(paySystem);
-            // jobOfferComponentView.Add(googleMaps);
-            // jobOfferComponentView.AddAllComponents();
 
             structurizrClient.UnlockWorkspace(workspaceId);
             structurizrClient.PutWorkspace(workspaceId, workspace);

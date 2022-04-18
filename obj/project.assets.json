@@ -5216,24 +5216,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lenovo\\.nuget\\packages\\": {}
+    "C:\\Users\\rodri\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\Brigitte\\7mo ciclo\\Fundamentos de arquitectura de software\\FrikiTeam\\fas-c4-model\\fas-c4-model.csproj",
+      "projectUniqueName": "D:\\Ing de Software\\Ciclo 7\\Fundamentos de Arquitectura de Software\\Codigo\\C4FrikiTeam\\fas-c4-model.csproj",
       "projectName": "fas-c4-model",
-      "projectPath": "H:\\Brigitte\\7mo ciclo\\Fundamentos de arquitectura de software\\FrikiTeam\\fas-c4-model\\fas-c4-model.csproj",
-      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "H:\\Brigitte\\7mo ciclo\\Fundamentos de arquitectura de software\\FrikiTeam\\fas-c4-model\\obj\\",
+      "projectPath": "D:\\Ing de Software\\Ciclo 7\\Fundamentos de Arquitectura de Software\\Codigo\\C4FrikiTeam\\fas-c4-model.csproj",
+      "packagesPath": "C:\\Users\\rodri\\.nuget\\packages\\",
+      "outputPath": "D:\\Ing de Software\\Ciclo 7\\Fundamentos de Arquitectura de Software\\Codigo\\C4FrikiTeam\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\rodri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
